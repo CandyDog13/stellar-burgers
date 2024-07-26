@@ -19,6 +19,8 @@ import { useDispatch } from '../../services/store';
 import { fetchIngredients } from '../../services/ingredientsSlice';
 import { checkUserAuth, fetchGetUser } from '../../services/userSlice';
 import { ProtectedRoute } from '../protected-route';
+import { orderSliceActions } from '../../services/orderSlice';
+import { CenteringComponent } from '../centering-component';
 
 const App = () => {
   const location = useLocation();
@@ -83,13 +85,29 @@ const App = () => {
               </ProtectedRoute>
             }
           />
-          <Route path='feed/:number' element={<OrderInfo />} />
-          <Route path='/ingredients/:id' element={<IngredientDetails />} />
+          <Route
+            path='feed/:number'
+            element={
+              <CenteringComponent title={'Детали заказа'}>
+                <OrderInfo />
+              </CenteringComponent>
+            }
+          />
+          <Route
+            path='/ingredients/:id'
+            element={
+              <CenteringComponent title={'Детали ингреиента'}>
+                <IngredientDetails />
+              </CenteringComponent>
+            }
+          />
           <Route
             path='/profile/orders/:number'
             element={
               <ProtectedRoute>
-                <OrderInfo />
+                <CenteringComponent title={'Детали заказа'}>
+                  <OrderInfo />
+                </CenteringComponent>
               </ProtectedRoute>
             }
           />
@@ -105,6 +123,7 @@ const App = () => {
                 title={'Информация о заказе'}
                 onClose={() => {
                   navigate('/feed');
+                  dispatch(orderSliceActions.clearOrderState());
                 }}
               >
                 <OrderInfo />
@@ -118,6 +137,7 @@ const App = () => {
                 title={'Детали ингредиента'}
                 onClose={() => {
                   navigate('/');
+                  dispatch(orderSliceActions.clearOrderState());
                 }}
               >
                 <IngredientDetails />
@@ -132,6 +152,7 @@ const App = () => {
                   title={'Информация о заказе'}
                   onClose={() => {
                     navigate('/profile/orders');
+                    dispatch(orderSliceActions.clearOrderState());
                   }}
                 >
                   <OrderInfo />
