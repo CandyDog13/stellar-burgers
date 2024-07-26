@@ -1,6 +1,7 @@
 import { userSliceSelectors } from '../../services/userSlice';
 import { useSelector } from '../../services/store';
 import { Navigate, useLocation } from 'react-router-dom';
+import { Preloader } from '@ui';
 
 type ProtectedRouteProps = {
   onlyUnAuth?: boolean;

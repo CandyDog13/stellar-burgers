@@ -17,6 +17,8 @@ import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import { useEffect } from 'react';
 import { useDispatch } from '../../services/store';
 import { fetchIngredients } from '../../services/ingredientsSlice';
+import { checkUserAuth, fetchGetUser } from '../../services/userSlice';
+import { ProtectedRoute } from '../protected-route';
 
 const App = () => {
   const location = useLocation();
@@ -25,6 +27,7 @@ const App = () => {
   const navigate = useNavigate();
   useEffect(() => {
     dispatch(fetchIngredients());
+    dispatch(checkUserAuth());
   }, []);
   return (
     <div className={styles.app}>
@@ -32,12 +35,54 @@ const App = () => {
         <Route path='/' element={<AppHeader />}>
           <Route index element={<ConstructorPage />} />
           <Route path='feed' element={<Feed />} />
-          <Route path='login' element={<Login />} />
-          <Route path='register' element={<Register />} />
-          <Route path='forgot-password' element={<ForgotPassword />} />
-          <Route path='reset-password' element={<ResetPassword />} />
-          <Route path='profile' element={<Profile />} />
-          <Route path='profile/orders' element={<ProfileOrders />} />
+          <Route
+            path='login'
+            element={
+              <ProtectedRoute onlyUnAuth>
+                <Login />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='register'
+            element={
+              <ProtectedRoute onlyUnAuth>
+                <Register />{' '}
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='forgot-password'
+            element={
+              <ProtectedRoute onlyUnAuth>
+                <ForgotPassword />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='reset-password'
+            element={
+              <ProtectedRoute onlyUnAuth>
+                <ResetPassword />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='profile'
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='profile/orders'
+            element={
+              <ProtectedRoute>
+                <ProfileOrders />
+              </ProtectedRoute>
+            }
+          />
           <Route path='feed/:number' element={<OrderInfo />} />
           <Route path='/ingredients/:id' element={<IngredientDetails />} />
           <Route path='/profile/orders/:number' element={<OrderInfo />} />

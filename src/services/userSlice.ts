@@ -16,7 +16,6 @@ import { deleteCookie, getCookie, setCookie } from '../utils/cookie';
 export type userState = {
   userData: TUser | null;
   isAuthChecked: boolean;
-  isAuthenticated: boolean;
   loginUserError: string | null;
   loginUserRequest: boolean;
   registrationError: string | null;
@@ -27,7 +26,6 @@ export type userState = {
 const initialState: userState = {
   userData: null,
   isAuthChecked: false,
-  isAuthenticated: false,
   loginUserError: null,
   loginUserRequest: false,
   registrationError: null,
@@ -40,10 +38,10 @@ export const checkUserAuth = createAsyncThunk(
   (_, { dispatch }) => {
     if (getCookie('accessToken')) {
       dispatch(fetchGetUser()).finally(() => {
-        dispatch(authChecked());
+        dispatch(userSliceActions.authChecked());
       });
     } else {
-      dispatch(authChecked());
+      dispatch(userSliceActions.authChecked());
     }
   }
 );
@@ -94,7 +92,7 @@ export const fetchLogoutUser = createAsyncThunk(
   async () => logoutApi()
 );
 
-export const fetchGetUser = createAsyncThunk('user/fetchGetUser', async () =>
+export const fetchGetUser = createAsyncThunk('user/fetchGetUser', () =>
   getUserApi()
 );
 
@@ -118,27 +116,23 @@ const userSlice = createSlice({
       .addCase(fetchLoginUser.pending, (state) => {
         state.loginUserRequest = true;
         state.loginUserError = null;
-        state.isAuthenticated = false;
         state.isAuthChecked = false;
       })
       .addCase(fetchLoginUser.rejected, (state, action) => {
         state.isAuthChecked = true;
         state.loginUserError = action.error.message as string;
         state.loginUserRequest = false;
-        state.isAuthenticated = false;
       })
       .addCase(fetchLoginUser.fulfilled, (state, action) => {
         state.userData = action.payload.user;
         state.isAuthChecked = true;
         state.loginUserRequest = false;
         state.loginUserError = null;
-        state.isAuthenticated = true;
       })
       .addCase(fetchRegisterUser.pending, (state) => {
         state.loginUserRequest = true;
         state.registrationError = null;
-        state.isAuthChecked = true;
-        state.isAuthenticated = false;
+        state.isAuthChecked = false;
       })
       .addCase(fetchRegisterUser.rejected, (state, action) => {
         state.loginUserRequest = false;
@@ -149,8 +143,6 @@ const userSlice = createSlice({
         state.loginUserRequest = false;
         state.registrationError = null;
         state.userData = action.payload.user;
-        state.isAuthChecked = false;
-        state.isAuthenticated = true;
       })
       .addCase(fetchUpdateUser.pending, (state) => {
         state.loginUserRequest = true;
@@ -170,14 +162,12 @@ const userSlice = createSlice({
         state.loginUserRequest = true;
       })
       .addCase(fetchLogoutUser.rejected, (state, action) => {
-        state.isAuthenticated = true;
         state.isAuthChecked = false;
         state.logOutError = action.error.message as string;
         state.loginUserRequest = false;
       })
       .addCase(fetchLogoutUser.fulfilled, (state) => {
-        state.isAuthenticated = false;
-        state.isAuthChecked = false;
+        // state.isAuthChecked = false;
         state.logOutError = null;
         state.loginUserRequest = false;
         state.userData = null;
@@ -185,17 +175,14 @@ const userSlice = createSlice({
         deleteCookie('accessToken');
       })
       .addCase(fetchGetUser.pending, (state) => {
-        state.isAuthenticated = true;
         state.isAuthChecked = true;
         state.loginUserRequest = true;
       })
       .addCase(fetchGetUser.rejected, (state, action) => {
-        state.isAuthenticated = false;
         state.isAuthChecked = false;
         state.loginUserRequest = false;
       })
       .addCase(fetchGetUser.fulfilled, (state, action) => {
-        state.isAuthenticated = true;
         state.loginUserRequest = false;
         state.userData = action.payload.user;
         state.isAuthChecked = false;
@@ -207,10 +194,3 @@ export const userSliceReducer = userSlice.reducer;
 export const userSliceName = userSlice.name;
 export const userSliceSelectors = userSlice.selectors;
 export const userSliceActions = userSlice.actions;
-function getUser(): any {
-  throw new Error('Function not implemented.');
-}
-
-function authChecked(): any {
-  throw new Error('Function not implemented.');
-}
