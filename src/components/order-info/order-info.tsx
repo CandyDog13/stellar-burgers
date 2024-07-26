@@ -20,7 +20,7 @@ export const OrderInfo: FC = () => {
   );
 
   useEffect(() => {
-    dispatch(fetchOrderByNumber(Number(params.id)));
+    dispatch(fetchOrderByNumber(Number(params.number)));
   }, []);
 
   /* Готовим данные для отображения */

@@ -1,5 +1,6 @@
 import {
   forgotPasswordApi,
+  getOrdersApi,
   getUserApi,
   loginUserApi,
   logoutApi,
@@ -10,7 +11,7 @@ import {
   updateUserApi
 } from '@api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { TUser } from '@utils-types';
+import { TUser, TOrder } from '@utils-types';
 import { deleteCookie, getCookie, setCookie } from '../utils/cookie';
 
 export type userState = {
@@ -21,6 +22,8 @@ export type userState = {
   registrationError: string | null;
   logOutError: string | null;
   updateError: string | null;
+  orders: TOrder[];
+  ordersError: string | null;
 };
 
 const initialState: userState = {
@@ -30,8 +33,14 @@ const initialState: userState = {
   loginUserRequest: false,
   registrationError: null,
   logOutError: null,
-  updateError: null
+  updateError: null,
+  orders: [],
+  ordersError: null
 };
+
+export const fetchUserOrders = createAsyncThunk('user/fetchOrders', async () =>
+  getOrdersApi()
+);
 
 export const checkUserAuth = createAsyncThunk(
   'user/checkUser',
@@ -109,7 +118,9 @@ const userSlice = createSlice({
     getAuthChecked: (state) => state.isAuthChecked,
     getLoginUserRequest: (state) => state.loginUserRequest,
     getErrorRegistration: (state) => state.registrationError,
-    getErrorLogin: (state) => state.loginUserError
+    getErrorLogin: (state) => state.loginUserError,
+    getUserOrders: (state) => state.orders,
+    getUserOrdersError: (state) => state.ordersError
   },
   extraReducers: (builder) => {
     builder
@@ -167,7 +178,6 @@ const userSlice = createSlice({
         state.loginUserRequest = false;
       })
       .addCase(fetchLogoutUser.fulfilled, (state) => {
-        // state.isAuthChecked = false;
         state.logOutError = null;
         state.loginUserRequest = false;
         state.userData = null;
@@ -186,6 +196,16 @@ const userSlice = createSlice({
         state.loginUserRequest = false;
         state.userData = action.payload.user;
         state.isAuthChecked = false;
+      })
+      .addCase(fetchUserOrders.pending, (state) => {
+        state.orders = [];
+        state.ordersError = null;
+      })
+      .addCase(fetchUserOrders.rejected, (state, action) => {
+        state.ordersError = action.error.message as string;
+      })
+      .addCase(fetchUserOrders.fulfilled, (state, action) => {
+        state.orders = action.payload;
       });
   }
 });
