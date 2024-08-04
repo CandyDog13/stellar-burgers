@@ -82,9 +82,6 @@ describe('Проверка модальных окон', () => {
 
 describe('Проверка создания заказа', () => {
   it('Тест заказа', () => {
-    cy.intercept('POST', 'api/orders', { fixture: 'order.json' }).as(
-      'getOrder'
-    );
     cy.get('p').contains('Tester Testov').should('exist');
     cy.get('div').contains('Выберите булки').should('exist');
     cy.get('li')
@@ -106,6 +103,9 @@ describe('Проверка создания заказа', () => {
       .click();
     cy.get('div').contains('Выберите начинку').should('not.exist');
     cy.get('button').contains('Оформить заказ').click();
+    cy.intercept('POST', 'api/orders', { fixture: 'order.json' }).as(
+      'getOrder'
+    );
     cy.wait('@getOrder');
     cy.get('#modals').should('not.be.empty');
     cy.get('#modals').find('h2').contains('1111').should('exist');
