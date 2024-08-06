@@ -79,11 +79,11 @@ describe('Тестирование feedInfoSlice', () => {
   });
   test('Тест rejected feedInfoReducer', () => {
     const action = { type: fetchFeedInfo.rejected.type };
-    const expectedResult = {
+    const expectedState = {
       ...initialTestState,
       error: 'Ошибка данных ленты заказов'
     };
     const newState = feedInfoReducer(initialTestState, action);
-    expect(newState).toEqual(expectedResult);
+    expect(newState).toEqual(expectedState);
   });
 });

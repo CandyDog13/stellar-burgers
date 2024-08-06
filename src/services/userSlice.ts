@@ -130,8 +130,8 @@ const userSlice = createSlice({
         state.isAuthChecked = false;
       })
       .addCase(fetchLoginUser.rejected, (state, action) => {
-        state.isAuthChecked = true;
-        state.loginUserError = action.error.message as string;
+        state.isAuthChecked = false;
+        state.loginUserError = 'Ошибка доступа к личному кабинету';
         state.loginUserRequest = false;
       })
       .addCase(fetchLoginUser.fulfilled, (state, action) => {
@@ -147,12 +147,13 @@ const userSlice = createSlice({
       })
       .addCase(fetchRegisterUser.rejected, (state, action) => {
         state.loginUserRequest = false;
-        state.registrationError = action.error.message as string;
+        state.registrationError = 'Ошибка регистрации';
         state.isAuthChecked = false;
       })
       .addCase(fetchRegisterUser.fulfilled, (state, action) => {
         state.loginUserRequest = false;
         state.registrationError = null;
+        state.isAuthChecked = true;
         state.userData = action.payload.user;
       })
       .addCase(fetchUpdateUser.pending, (state) => {
@@ -161,12 +162,13 @@ const userSlice = createSlice({
       })
       .addCase(fetchUpdateUser.rejected, (state, action) => {
         state.loginUserRequest = false;
-        state.updateError = action.error.message as string;
+        state.updateError = 'Ошибка обновления';
       })
       .addCase(fetchUpdateUser.fulfilled, (state, action) => {
         state.loginUserRequest = false;
         state.updateError = null;
         state.userData = action.payload.user;
+        state.isAuthChecked = true;
       })
       .addCase(fetchLogoutUser.pending, (state) => {
         state.logOutError = null;
