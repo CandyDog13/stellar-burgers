@@ -194,7 +194,8 @@ const config: Config = {
 
   // Whether to use watchman for file crawling
   // watchman: true,
-  preset: 'ts-jest'
+  preset: 'ts-jest',
+  testEnvironment: 'jsdom'
 };
 
 export default config;

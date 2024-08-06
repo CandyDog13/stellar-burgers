@@ -176,7 +176,7 @@ const userSlice = createSlice({
       })
       .addCase(fetchLogoutUser.rejected, (state, action) => {
         state.isAuthChecked = false;
-        state.logOutError = action.error.message as string;
+        state.logOutError = 'Ошибка выхода из аккаунта';
         state.loginUserRequest = false;
       })
       .addCase(fetchLogoutUser.fulfilled, (state) => {
@@ -204,7 +204,7 @@ const userSlice = createSlice({
         state.ordersError = null;
       })
       .addCase(fetchUserOrders.rejected, (state, action) => {
-        state.ordersError = action.error.message as string;
+        state.ordersError = 'Ошибка загрузки заказов пользователя';
       })
       .addCase(fetchUserOrders.fulfilled, (state, action) => {
         state.orders = action.payload;

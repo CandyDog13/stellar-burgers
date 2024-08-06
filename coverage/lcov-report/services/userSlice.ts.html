@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.52% </span>
+                <span class="strong">87.15% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>169/218</span>
+                <span class='fraction'>190/218</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>19/19</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.52% </span>
+                <span class="strong">87.15% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>169/218</span>
+                <span class='fraction'>190/218</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -454,43 +454,43 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -672,43 +672,43 @@ const userSlice = createSlice({
         state.isAuthChecked = true;
       })
       .addCase(fetchLogoutUser.pending, (state) =&gt; {
-<span class="cstat-no" title="statement not covered" >        state.logOutError = null;</span>
-<span class="cstat-no" title="statement not covered" >        state.loginUserRequest = true;</span>
+        state.logOutError = null;
+        state.loginUserRequest = true;
       })
       .addCase(fetchLogoutUser.rejected, (state, action) =&gt; {
-<span class="cstat-no" title="statement not covered" >        state.isAuthChecked = false;</span>
-<span class="cstat-no" title="statement not covered" >        state.logOutError = action.error.message as string;</span>
-<span class="cstat-no" title="statement not covered" >        state.loginUserRequest = false;</span>
+        state.isAuthChecked = false;
+        state.logOutError = 'Ошибка выхода из аккаунта';
+        state.loginUserRequest = false;
       })
       .addCase(fetchLogoutUser.fulfilled, (state) =&gt; {
-<span class="cstat-no" title="statement not covered" >        state.logOutError = null;</span>
-<span class="cstat-no" title="statement not covered" >        state.loginUserRequest = false;</span>
-<span class="cstat-no" title="statement not covered" >        state.userData = null;</span>
-<span class="cstat-no" title="statement not covered" >        localStorage.clear();</span>
-<span class="cstat-no" title="statement not covered" >        deleteCookie('accessToken');</span>
+        state.logOutError = null;
+        state.loginUserRequest = false;
+        state.userData = null;
+        localStorage.clear();
+        deleteCookie('accessToken');
       })
       .addCase(fetchGetUser.pending, (state) =&gt; {
-<span class="cstat-no" title="statement not covered" >        state.isAuthChecked = true;</span>
-<span class="cstat-no" title="statement not covered" >        state.loginUserRequest = true;</span>
+        state.isAuthChecked = true;
+        state.loginUserRequest = true;
       })
       .addCase(fetchGetUser.rejected, (state, action) =&gt; {
-<span class="cstat-no" title="statement not covered" >        state.isAuthChecked = false;</span>
-<span class="cstat-no" title="statement not covered" >        state.loginUserRequest = false;</span>
+        state.isAuthChecked = false;
+        state.loginUserRequest = false;
       })
       .addCase(fetchGetUser.fulfilled, (state, action) =&gt; {
-<span class="cstat-no" title="statement not covered" >        state.loginUserRequest = false;</span>
-<span class="cstat-no" title="statement not covered" >        state.userData = action.payload.user;</span>
-<span class="cstat-no" title="statement not covered" >        state.isAuthChecked = false;</span>
+        state.loginUserRequest = false;
+        state.userData = action.payload.user;
+        state.isAuthChecked = false;
       })
       .addCase(fetchUserOrders.pending, (state) =&gt; {
-<span class="cstat-no" title="statement not covered" >        state.orders = [];</span>
-<span class="cstat-no" title="statement not covered" >        state.ordersError = null;</span>
+        state.orders = [];
+        state.ordersError = null;
       })
       .addCase(fetchUserOrders.rejected, (state, action) =&gt; {
-<span class="cstat-no" title="statement not covered" >        state.ordersError = action.error.message as string;</span>
+        state.ordersError = 'Ошибка загрузки заказов пользователя';
       })
       .addCase(fetchUserOrders.fulfilled, (state, action) =&gt; {
-<span class="cstat-no" title="statement not covered" >        state.orders = action.payload;</span>
+        state.orders = action.payload;
       });
   }
 });
@@ -724,7 +724,7 @@ export const userSliceActions = userSlice.actions;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-08-06T17:23:44.426Z
+                at 2024-08-06T20:18:33.437Z
             </div>
         <script src="../prettify.js"></script>
         <script>
