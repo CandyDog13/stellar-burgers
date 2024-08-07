@@ -1,7 +1,8 @@
 import { expect, describe, test } from '@jest/globals';
 import {
   burgerConstructorActions,
-  burgerConstructorReducer
+  burgerConstructorReducer,
+  initialState as initialTestState
 } from './burgerConstructorSlice';
 
 describe('Проверка reducer слайса constructor', () => {
@@ -46,10 +47,6 @@ describe('Проверка reducer слайса constructor', () => {
     image_mobile: 'https://code.s3.yandex.net/react/code/sauce-02-mobile.png',
     image_large: 'https://code.s3.yandex.net/react/code/sauce-02-large.png',
     __v: 0
-  };
-  const initialTestState = {
-    bun: null,
-    ingredients: []
   };
   test('проверка добавления ингредиента булки', () => {
     const expectedState = { ...initialTestState, bun: testBun };

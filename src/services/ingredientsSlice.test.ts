@@ -1,12 +1,11 @@
 import { expect, describe, test } from '@jest/globals';
-import { fetchIngredients, ingredientsReducer } from './ingredientsSlice';
+import {
+  fetchIngredients,
+  ingredientsReducer,
+  initialState as initialTestState
+} from './ingredientsSlice';
 
 describe('Тестирование IngredientsSlice', () => {
-  const initialTestState = {
-    ingredients: [],
-    isLoading: false,
-    error: null
-  };
   const mockState = {
     ...initialTestState,
     ingredients: [

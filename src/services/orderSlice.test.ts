@@ -2,15 +2,11 @@ import { expect, describe, test } from '@jest/globals';
 import {
   fetchCreateNewOrder,
   fetchOrderByNumber,
-  orderSliceReducer
+  orderSliceReducer,
+  initialState as initialTestState
 } from './orderSlice';
 
 describe('Тестирование OrderReducer', () => {
-  const initialTestState = {
-    order: null,
-    isLoading: false,
-    error: null
-  };
   const mockOrderByNumber = {
     success: true,
     orders: [

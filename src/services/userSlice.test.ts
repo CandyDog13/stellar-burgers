@@ -6,7 +6,8 @@ import {
   fetchLogoutUser,
   userSliceReducer,
   fetchGetUser,
-  fetchUserOrders
+  fetchUserOrders,
+  initialState as initialTestState
 } from './userSlice';
 // import { deleteCookie, getCookie, setCookie } from '../utils/cookie';
 describe('Тестирование userSliceReducer', () => {
@@ -33,18 +34,6 @@ describe('Тестирование userSliceReducer', () => {
   afterAll(() => {
     jest.clearAllMocks();
   });
-
-  const initialTestState = {
-    userData: null,
-    isAuthChecked: false,
-    loginUserError: null,
-    loginUserRequest: false,
-    registrationError: null,
-    logOutError: null,
-    updateError: null,
-    orders: [],
-    ordersError: null
-  };
 
   const mockLoginState = {
     email: 'test@yandex.ru',

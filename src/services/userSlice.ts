@@ -26,7 +26,7 @@ export type userState = {
   ordersError: string | null;
 };
 
-const initialState: userState = {
+export const initialState: userState = {
   userData: null,
   isAuthChecked: false,
   loginUserError: null,
