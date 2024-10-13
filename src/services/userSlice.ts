@@ -9,7 +9,7 @@ import {
   TLoginData,
   TRegisterData,
   updateUserApi
-} from '@api';
+} from '../utils/burger-api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TUser, TOrder } from '@utils-types';
 import { deleteCookie, getCookie, setCookie } from '../utils/cookie';
@@ -26,7 +26,7 @@ export type userState = {
   ordersError: string | null;
 };
 
-const initialState: userState = {
+export const initialState: userState = {
   userData: null,
   isAuthChecked: false,
   loginUserError: null,
@@ -130,8 +130,8 @@ const userSlice = createSlice({
         state.isAuthChecked = false;
       })
       .addCase(fetchLoginUser.rejected, (state, action) => {
-        state.isAuthChecked = true;
-        state.loginUserError = action.error.message as string;
+        state.isAuthChecked = false;
+        state.loginUserError = 'Ошибка доступа к личному кабинету';
         state.loginUserRequest = false;
       })
       .addCase(fetchLoginUser.fulfilled, (state, action) => {
@@ -147,12 +147,13 @@ const userSlice = createSlice({
       })
       .addCase(fetchRegisterUser.rejected, (state, action) => {
         state.loginUserRequest = false;
-        state.registrationError = action.error.message as string;
+        state.registrationError = 'Ошибка регистрации';
         state.isAuthChecked = false;
       })
       .addCase(fetchRegisterUser.fulfilled, (state, action) => {
         state.loginUserRequest = false;
         state.registrationError = null;
+        state.isAuthChecked = true;
         state.userData = action.payload.user;
       })
       .addCase(fetchUpdateUser.pending, (state) => {
@@ -161,12 +162,13 @@ const userSlice = createSlice({
       })
       .addCase(fetchUpdateUser.rejected, (state, action) => {
         state.loginUserRequest = false;
-        state.updateError = action.error.message as string;
+        state.updateError = 'Ошибка обновления';
       })
       .addCase(fetchUpdateUser.fulfilled, (state, action) => {
         state.loginUserRequest = false;
         state.updateError = null;
         state.userData = action.payload.user;
+        state.isAuthChecked = true;
       })
       .addCase(fetchLogoutUser.pending, (state) => {
         state.logOutError = null;
@@ -174,7 +176,7 @@ const userSlice = createSlice({
       })
       .addCase(fetchLogoutUser.rejected, (state, action) => {
         state.isAuthChecked = false;
-        state.logOutError = action.error.message as string;
+        state.logOutError = 'Ошибка выхода из аккаунта';
         state.loginUserRequest = false;
       })
       .addCase(fetchLogoutUser.fulfilled, (state) => {
@@ -202,7 +204,7 @@ const userSlice = createSlice({
         state.ordersError = null;
       })
       .addCase(fetchUserOrders.rejected, (state, action) => {
-        state.ordersError = action.error.message as string;
+        state.ordersError = 'Ошибка загрузки заказов пользователя';
       })
       .addCase(fetchUserOrders.fulfilled, (state, action) => {
         state.orders = action.payload;
